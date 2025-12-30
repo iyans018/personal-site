@@ -1,0 +1,47 @@
+---
+title: "Mobile Timesheet Automation"
+description: "Automating reporting and data synchronization for company-wide activity and leave tracking."
+date: "2024-05-15"
+client: "Telkomsigma"
+role: "Senior Backend Developer"
+stack: ["Python", "Apache Airflow", "SQL", "DAGs"]
+metrics: ["Automated Daily Reporting", "Real-time background sync", "Zero manual reporting"]
+---
+
+## The Challenge
+
+Telkomsigma's internal leave and activity tracking system required manual intervention for generating daily reports and synchronizing data between the mobile application and the core enterprise databases. This was time-consuming and prone to human error.
+
+## The Solution
+
+I designed and implemented a series of **Apache Airflow DAGs** (Directed Acyclic Graphs) to fully automate the data pipeline and reporting workflows.
+
+- **Automated Sync**: Background tasks that pull activity logs from the mobile database and push them to the central HR systems.
+- **Dynamic Reporting**: Daily automated generation of PDF/Excel reports sent directly to department heads.
+- **Monitoring**: Implemented robust error handling and alerting via Slack/Email if a sync task fails.
+
+## Technical Implementation
+
+The implementation focused on clean, idempotent Airflow tasks using Python.
+
+```python
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+
+def sync_timesheet_data():
+    # Logic to fetch from mobile API and push to HRDB
+    pass
+
+with DAG('timesheet_sync_v2', schedule_interval='@daily') as dag:
+    task_sync = PythonOperator(
+        task_id='sync_data',
+        python_callable=sync_timesheet_data
+    )
+```
+
+## The Impact
+
+- **100% Automation** of the reporting process, saving hours of manual work every week.
+- **Improved Data Accuracy**: Real-time synchronization ensured that leave balances and activity logs were always up-to-date across all platforms.
+- **Reliability**: The system's self-healing nature through Airflow retries significantly reduced downtime.
+---

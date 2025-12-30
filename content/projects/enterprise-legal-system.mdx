@@ -1,39 +1,46 @@
 ---
-title: "Digipactum"
-description: "Modernizing a legacy legal workflow system for a major enterprise client."
-date: "2022-11-01"
+title: "Legal Contract Approval System"
+description: "A production-grade digitization of complex legal workflows, reducing processing time by 50%."
+date: "2023-11-01"
 client: "Telkomsigma"
-role: "Backend Developer"
-stack: ["Python", "Django", "Oracle", "Redis", "Celery"]
-metrics: ["50% faster workflows", "Zero downtime migration", "30% dev time saved"]
+role: "Senior Backend Developer"
+stack: ["Python", "Django", "Oracle SQL", "SharePoint", "Celery", "RabbitMQ"]
+metrics: ["50% faster processing", "100% digital trace", "Zero file duplication"]
 ---
 
 ## The Challenge
 
-The client was struggling with a decade-old monolithic application that was slow, hard to maintain, and lacked modern security features. The goal was to modernize the backend while ensuring zero downtime for ongoing legal operations.
+The legal contract approval process at Telkomsigma was heavily reliant on manual paperwork and fragmented email chains. This caused significant delays, increased the risk of lost documents, and made it difficult for stakeholders to track the status of critical contracts.
 
-## System Architecture
+## The Solution
 
-We transitioned from a monolithic SOAP-based architecture to a modular **REST/GraphQL** API using **Node.js**.
+We built a robust, enterprise-grade system to digitize the entire lifecycle of a legal contract—from drafting and internal review to final approval and archival.
 
-- **API Gateway**: Unified entry point for all client applications.
-- **Workflow Engine**: Custom engine to handle complex approval chains.
-- **Document Service**: Secure storage and retrieval of sensitive legal documents.
+- **Workflow Engine**: Custom-built logic handling complex multi-tier approval hierarchies.
+- **Asynchronous Processing**: Used **Celery** and **RabbitMQ** to handle resource-intensive tasks like PDF generation and email notifications without blocking the user interface.
+- **Document Integration**: Seamless connection with **Microsoft SharePoint** via REST APIs for centralized, secure storage of all contract files.
 
 ## Technical Implementation
 
-We implemented **Redis** caching to speed up frequent lookups and utilized **Docker** for consistent deployment environments.
+Optimizing database performance was critical given the complexity of the contract relationships.
 
-```javascript
-const resolveWorkflow = async (workflowId) => {
-    const cached = await redis.get(`workflow:${workflowId}`);
-    if (cached) return JSON.parse(cached);
-    // ... fetch and cache logic
-}
+- **Query Optimization**: Refactored complex SQL joins and added strategic indexing in **Oracle SQL**, resulting in a significant performance boost.
+- **Micro-integration**: Designed a resilient integration layer for SharePoint to ensure file consistency across systems.
+
+```python
+# Sample of Asynchronous Approval Processing
+@shared_task
+def process_contract_approval(contract_id, user_id):
+    contract = Contract.objects.get(id=contract_id)
+    # Perform expensive validations and state transitions
+    contract.finalize_status()
+    # Sync with SharePoint
+    sync_to_sharepoint.delay(contract_id)
 ```
 
 ## The Impact
 
-- Reduced document retrieval time by **60%**.
-- Achieved a **smooth migration** with zero operational downtime.
-- Improved developer productivity by **30%** with better tooling.
+- **50% Reduction** in the total time required for a contract to move from draft to fully approved.
+- **Unified Repository**: Centralized all legal documents into SharePoint, eliminating file duplication.
+- **Auditability**: Provided a clear, digital audit trail for every contract action, ensuring compliance with enterprise standards.
+---

@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* ... previous sections ... */}
-      <section className="relative w-full pt-12 md:pt-24 lg:pt-32 pb-12 overflow-hidden">
+      <section className="relative w-full pt-8 md:pt-16 lg:pt-20 pb-12 overflow-hidden">
         <div className="absolute inset-0 z-[-1] bg-grid-pattern opacity-[0.15]"></div>
         <div className="container max-w-7xl mx-auto px-4 md:px-6">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-8 items-center">
@@ -35,7 +35,7 @@ export default function Home() {
                 Building <span className="text-primary">Resilient</span> & Scalable Backends for High-Stakes Systems.
               </h1>
               <p className="text-lg text-muted-foreground max-w-lg leading-relaxed">
-                A Backend Specialist with a deep interest in distributed systems. My work is guided by the core pillars of DDIA: ensuring long-term scalability and operational excellence in every line of code.
+                A Software Engineer specializing in scalable backends and distributed systems. From optimizing enterprise workflows to building event-driven architectures, I design resilient software that lasts.
               </p>
               <div className="flex flex-wrap gap-4 pt-2">
                 <Button asChild size="lg" className="h-12 px-6 text-base font-bold shadow-lg shadow-primary/25">
@@ -116,39 +116,39 @@ export default function Home() {
           <p className="mt-2 text-muted-foreground">Solving real-world problems with scalable architecture.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Link href="/projects/fintech-exchange" className="relative overflow-hidden rounded-xl border border-border bg-card p-6 flex flex-col group glow-hover h-full transition-transform hover:-translate-y-1">
+          <Link href="/projects/partner-data-management" className="relative overflow-hidden rounded-xl border border-border bg-card p-6 flex flex-col group glow-hover h-full transition-transform hover:-translate-y-1">
             <div className="absolute top-0 right-0 p-4 opacity-50 group-hover:opacity-100 transition-opacity">
-              <ArrowLeftRight className="h-8 w-8 text-primary" />
-            </div>
-            <div className="mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-primary">Fintech</span>
-            </div>
-            <h3 className="text-xl font-bold text-foreground mb-2">Fintech Exchange Backend</h3>
-            <p className="text-xs font-medium text-muted-foreground/80 mb-4 italic">Architectural Experiment in High-Concurrency Financial Systems.</p>
-            <p className="text-sm text-muted-foreground mb-6 flex-grow">
-              Designed a high-concurrency backend leveraging microservices architecture. Integrated RabbitMQ to handle transaction queues efficiently, ensuring data consistency and system resilience under load.
-            </p>
-            <div className="flex flex-wrap gap-2 mt-auto">
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">RabbitMQ</span>
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Microservices</span>
-            </div>
-          </Link>
-
-          <Link href="/projects" className="relative overflow-hidden rounded-xl border border-border bg-card p-6 flex flex-col group glow-hover h-full transition-transform hover:-translate-y-1">
-            <div className="absolute top-0 right-0 p-4 opacity-50 group-hover:opacity-100 transition-opacity">
-              <Gavel className="h-8 w-8 text-primary" />
+              <Database className="h-8 w-8 text-primary" />
             </div>
             <div className="mb-4">
               <span className="text-xs font-bold uppercase tracking-wider text-primary">Enterprise</span>
             </div>
-            <h3 className="text-xl font-bold text-foreground mb-2">Enterprise Legal & Approval System</h3>
-            <p className="text-xs font-medium text-muted-foreground/80 mb-4 italic">Optimizing Workflow for Enterprise-Grade Performance.</p>
+            <h3 className="text-xl font-bold text-foreground mb-2">Partner Data Management</h3>
+            <p className="text-xs font-medium text-muted-foreground/80 mb-4 italic">Centralization for Operational Excellence.</p>
             <p className="text-sm text-muted-foreground mb-6 flex-grow">
-              Overhauled the backend at Telkomsigma by refactoring complex SQL queries and implementing asynchronous processing. Achieved a 50% increase in system speed and approval workflow efficiency.
+              Built a centralized registry to unify partner information across departments. Developed scalable REST APIs improving cross-team productivity and eliminating data duplication.
             </p>
             <div className="flex flex-wrap gap-2 mt-auto">
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">SQL Optimization</span>
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Async</span>
+              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">REST API</span>
+              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Oracle SQL</span>
+            </div>
+          </Link>
+
+          <Link href="/projects/enterprise-legal-system" className="relative overflow-hidden rounded-xl border border-border bg-card p-6 flex flex-col group glow-hover h-full transition-transform hover:-translate-y-1">
+            <div className="absolute top-0 right-0 p-4 opacity-50 group-hover:opacity-100 transition-opacity">
+              <Gavel className="h-8 w-8 text-primary" />
+            </div>
+            <div className="mb-4">
+              <span className="text-xs font-bold uppercase tracking-wider text-primary">Legal Tech</span>
+            </div>
+            <h3 className="text-xl font-bold text-foreground mb-2">Legal Contract Approval System</h3>
+            <p className="text-xs font-medium text-muted-foreground/80 mb-4 italic">Workflow Automation at Scale.</p>
+            <p className="text-sm text-muted-foreground mb-6 flex-grow">
+              Digitized end-to-end legal workflows using Django and SharePoint. Integrated Celery/RabbitMQ for async processing, reducing average approval time by 50%.
+            </p>
+            <div className="flex flex-wrap gap-2 mt-auto">
+              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Python</span>
+              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">SharePoint</span>
             </div>
           </Link>
 

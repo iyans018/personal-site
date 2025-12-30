@@ -43,8 +43,8 @@ export function SiteHeader() {
                     ))}
                 </nav>
                 <div className="flex items-center gap-4">
-                    <Link href="#" className="hidden sm:block text-xs font-mono text-muted-foreground hover:text-foreground transition-colors">
-                        git checkout resume
+                    <Link href="/resume" className="hidden sm:block text-xs font-mono text-muted-foreground hover:text-foreground transition-colors group">
+                        git checkout <span className="text-primary group-hover:underline">resume</span>
                     </Link>
                     <Button
                         onClick={scrollToBottom}
