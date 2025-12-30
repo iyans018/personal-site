@@ -1,0 +1,20 @@
+---
+title: "Scaling Microservices with RabbitMQ"
+description: "Decoupling services using message queues for better reliability and performance."
+date: "2024-11-20"
+tags: ["Microservices", "RabbitMQ", "Architecture"]
+---
+
+## Why Use a Message Queue?
+
+Direct service-to-service communication (HTPP/gRPC) can lead to tight coupling and cascading failures. Message queues like RabbitMQ provide a buffer.
+
+## Patterns of Messaging
+
+- **Pub/Sub**: One-to-many communication.
+- **Work Queues**: Distributing tasks among multiple workers.
+- **Routing**: Sending messages to specific consumers based on criteria.
+
+## Implementation Best Practices
+
+Always ensure your consumers are idempotent...

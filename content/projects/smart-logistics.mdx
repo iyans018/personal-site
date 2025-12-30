@@ -1,0 +1,42 @@
+---
+title: "Smart Logistics Tracker"
+description: "Real-time fleet tracking and route optimization system for logistics."
+date: "2023-02-14"
+client: "Global Logistics Co."
+role: "Full Stack Developer"
+stack: ["Go", "React Native", "Kafka", "Google Maps API"]
+metrics: ["20% Fuel Saving", "Real-time Tracking", "Scales to 50k devices"]
+---
+
+## The Challenge
+
+Tracking thousands of delivery vehicles in real-time and optimizing their routes to save fuel and time was the primary objective.
+
+## System Architecture
+
+We utilized **Kafka** to ingest high-frequency GPS data streams.
+
+- **Ingestion Service**: Handles high-throughput GPS pings.
+- **Optimization Engine**: Calculates best routes dynamically.
+- **Driver App**: Built with React Native for cross-platform support.
+
+## Technical Implementation
+
+**WebSocket** connections provided live updates to the dashboard.
+
+```go
+func (h *Hub) Run() {
+    for {
+        select {
+        case message := <-h.broadcast:
+            // Broadcast location updates to clients
+        }
+    }
+}
+```
+
+## The Impact
+
+- **20% reduction in fuel costs** due to optimized routing.
+- Scaled effortlessly to support **50,000+ active devices**.
+- Improved delivery time estimates accuracy by **40%**.

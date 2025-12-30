@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import { Terminal } from "lucide-react"
 
@@ -9,6 +11,13 @@ export function SiteHeader() {
         { href: "/projects", label: "Projects" },
         { href: "/blog", label: "Blog" },
     ]
+
+    const scrollToBottom = () => {
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: "smooth",
+        })
+    }
 
     return (
         <header className="fixed top-0 z-50 w-full border-b border-gray-200 dark:border-border/40 bg-white/80 dark:bg-background/80 backdrop-blur-md">
@@ -38,6 +47,7 @@ export function SiteHeader() {
                         git checkout resume
                     </Link>
                     <Button
+                        onClick={scrollToBottom}
                         className="flex h-9 items-center justify-center rounded bg-primary px-4 text-sm font-bold text-primary-foreground transition-transform active:scale-95 hover:bg-blue-600 shadow-[0_0_15px_rgba(19,91,236,0.3)]"
                     >
                         Contact

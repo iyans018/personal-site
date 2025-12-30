@@ -1,0 +1,37 @@
+---
+title: "HealthData Vault"
+description: "Secure and compliant health data storage system with end-to-end encryption."
+date: "2023-05-10"
+client: "MedTech Solutions"
+role: "Security Engineer"
+stack: ["Rust", "PostgreSQL", "Vault", "React"]
+metrics: ["HIPAA Compliant", "AES-256 Encryption", "100% Audit Log"]
+---
+
+## The Challenge
+
+Handling sensitive patient data requires strict adherence to regulations like HIPAA. The client needed a secure vault that ensured data privacy at rest and in transit.
+
+## System Architecture
+
+We chose **Rust** for its memory safety and performance guarantees.
+
+- **Vault Service**: Manages encryption keys securely.
+- **Audit Service**: Immutable logs for every data access.
+- **Access Control**: Role-based access with strict granularity.
+
+## Technical Implementation
+
+End-to-end encryption was implemented where the server never sees the plaintext data.
+
+```rust
+fn encrypt_record(data: &[u8], key: &Key) -> Result<Vec<u8>, Error> {
+    // AES-GCM encryption logic
+}
+```
+
+## The Impact
+
+- Fully **HIPAA compliant** auditing and storage.
+- **Zero data breaches** in penetration testing.
+- Faster compliance audits due to automated reporting.

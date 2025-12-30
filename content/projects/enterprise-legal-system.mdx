@@ -1,0 +1,39 @@
+---
+title: "Digipactum"
+description: "Modernizing a legacy legal workflow system for a major enterprise client."
+date: "2022-11-01"
+client: "Telkomsigma"
+role: "Backend Developer"
+stack: ["Python", "Django", "Oracle", "Redis", "Celery"]
+metrics: ["50% faster workflows", "Zero downtime migration", "30% dev time saved"]
+---
+
+## The Challenge
+
+The client was struggling with a decade-old monolithic application that was slow, hard to maintain, and lacked modern security features. The goal was to modernize the backend while ensuring zero downtime for ongoing legal operations.
+
+## System Architecture
+
+We transitioned from a monolithic SOAP-based architecture to a modular **REST/GraphQL** API using **Node.js**.
+
+- **API Gateway**: Unified entry point for all client applications.
+- **Workflow Engine**: Custom engine to handle complex approval chains.
+- **Document Service**: Secure storage and retrieval of sensitive legal documents.
+
+## Technical Implementation
+
+We implemented **Redis** caching to speed up frequent lookups and utilized **Docker** for consistent deployment environments.
+
+```javascript
+const resolveWorkflow = async (workflowId) => {
+    const cached = await redis.get(`workflow:${workflowId}`);
+    if (cached) return JSON.parse(cached);
+    // ... fetch and cache logic
+}
+```
+
+## The Impact
+
+- Reduced document retrieval time by **60%**.
+- Achieved a **smooth migration** with zero operational downtime.
+- Improved developer productivity by **30%** with better tooling.

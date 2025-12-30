@@ -34,7 +34,7 @@ export default function ProjectsPage() {
                             Featured Projects
                         </h1>
                         <p className="text-lg md:text-xl text-muted-foreground font-normal leading-relaxed max-w-2xl">
-                            Architecting high-availability financial infrastructure and distributed systems. A collection of production-grade solutions focused on performance and security.
+                            Developing robust backend systems and exploring distributed architectures. A showcase of production-grade solutions where performance meets maintainable design.
                         </p>
                     </div>
                 </div>
@@ -118,26 +118,6 @@ export default function ProjectsPage() {
                             </div>
                         </div>
                     ))}
-
-                    {/* Placeholder Card for "Legacy Migration" if needed, OR just the CTA below */}
-                </div>
-
-                {/* CTA Section */}
-                <div className="mt-6 rounded-xl bg-gradient-to-r from-card to-background border border-border p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
-                    <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-primary/5 to-transparent pointer-events-none"></div>
-                    <div className="flex-1 relative z-10">
-                        <h3 className="text-xl font-bold text-foreground mb-2">Looking for technical leadership?</h3>
-                        <p className="text-muted-foreground text-sm max-w-xl">
-                            I specialize in not just writing code, but defining architecture and engineering culture.
-                            Let's discuss how I can help scale your engineering team.
-                        </p>
-                    </div>
-                    <div className="flex gap-4 relative z-10">
-                        <Link href="/contact" className="group flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary hover:bg-blue-600 text-primary-foreground text-sm font-bold shadow-[0_0_15px_rgba(19,91,236,0.3)] transition-all">
-                            <span>Schedule a Call</span>
-                            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                    </div>
                 </div>
             </div>
         </div>
