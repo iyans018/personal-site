@@ -1,46 +1,43 @@
 ---
-title: "Legal Contract Approval System"
-description: "A production-grade digitization of complex legal workflows, reducing processing time by 50%."
-date: "2023-11-01"
+title: "Digipactum: Dynamic Workflow & AI-Powered Legal Lifecycle Management"
+description: "A ground-up digitalization of legal contract workflows, introducing a unit-wide standardized layered architecture and AI-driven document intelligence."
+date: "2024-03-01"
 client: "Telkomsigma"
-role: "Senior Backend Developer"
-stack: ["Python", "Django", "Oracle SQL", "SharePoint", "Celery", "RabbitMQ"]
-metrics: ["50% faster processing", "100% digital trace", "Zero file duplication"]
+role: "Backend Developer"
+stack: ["Django", "Vue 3", "Oracle DB", "Redis", "Celery", "SharePoint", "AI/NLP"]
+metrics: ["Unit-Wide Architecture Standard", "Dynamic Workflow Flexibility", "Real-Time Workload Transparency"]
 ---
 
 ## The Challenge
 
-The legal contract approval process at Telkomsigma was heavily reliant on manual paperwork and fragmented email chains. This caused significant delays, increased the risk of lost documents, and made it difficult for stakeholders to track the status of critical contracts.
+Telkomsigma needed a unified system to manage diverse contract categories—Sales, Procurement, and Partnership—each with distinct approval logic. The existing manual processes were opaque, making it difficult to track a contract's position or a Legal Officer's workload. Additionally, the development unit required a more robust, scalable backend structure to avoid technical debt in long-term enterprise projects.
 
 ## The Solution
 
-We built a robust, enterprise-grade system to digitize the entire lifecycle of a legal contract—from drafting and internal review to final approval and archival.
+Working within an iterative collaborative framework involving **Business Process Owners (BPO)** for requirements and **IT System Analysts (ITSA)** for system design, I executed the backend development of Digipactum from scratch.
 
-- **Workflow Engine**: Custom-built logic handling complex multi-tier approval hierarchies.
-- **Asynchronous Processing**: Used **Celery** and **RabbitMQ** to handle resource-intensive tasks like PDF generation and email notifications without blocking the user interface.
-- **Document Integration**: Seamless connection with **Microsoft SharePoint** via REST APIs for centralized, secure storage of all contract files.
-
-## Technical Implementation
-
-Optimizing database performance was critical given the complexity of the contract relationships.
-
-- **Query Optimization**: Refactored complex SQL joins and added strategic indexing in **Oracle SQL**, resulting in a significant performance boost.
-- **Micro-integration**: Designed a resilient integration layer for SharePoint to ensure file consistency across systems.
+- **Standardized Layered Architecture**: I designed and implemented a backend structure based on a clean layered architecture (Separating Service, Repository, and Controller logic). This design was so effective in terms of maintainability and testability that it was adopted as the official **Project Structure Standard** for all Backend development within the unit.
+- **Dynamic Workflow Engine**: To handle varying business processes for Sales or Procurement contracts, I built a configurable engine. This allows administrators to define and adjust approval flows through the system UI, enabling the business to adapt to process changes without requiring new code deployments.
+- **SharePoint Online Integration**: Developed a seamless document generation flow. The system duplicates existing legal templates in **Microsoft SharePoint** and allows users to perform **online editing** directly within the web app, ensuring all versions are centralized and securely stored.
+- **AI-Driven Executive Summaries**: Integrated AI capabilities to parse complex legal documents. The system provides automated summary suggestions, which are then used to populate Executive Summary documents, significantly speeding up the review phase.
+- **Operational Visibility (Dashboard & My Basket)**: 
+    - **Dashboard**: Created a real-time monitoring hub to track contract statuses and Legal Officer workloads.
+    - **My Basket**: Implemented a personalized task management feature, allowing users to instantly identify and execute pending actions (Approve/Reject) on contracts assigned to them.
 
 ```python
-# Sample of Asynchronous Approval Processing
-@shared_task
-def process_contract_approval(contract_id, user_id):
-    contract = Contract.objects.get(id=contract_id)
-    # Perform expensive validations and state transitions
-    contract.finalize_status()
-    # Sync with SharePoint
-    sync_to_sharepoint.delay(contract_id)
-```
+# Implementation of the Layered Architecture Pattern (Service Layer)
+class ContractApprovalService:
+    def __init__(self, repository: ContractRepository, workflow_engine: DynamicWorkflowEngine):
+        self.repo = repository
+        self.engine = workflow_engine
 
-## The Impact
-
-- **50% Reduction** in the total time required for a contract to move from draft to fully approved.
-- **Unified Repository**: Centralized all legal documents into SharePoint, eliminating file duplication.
-- **Auditability**: Provided a clear, digital audit trail for every contract action, ensuring compliance with enterprise standards.
----
+    def process_transition(self, contract_id, action, user_id):
+        # Business logic separated from the View/Controller
+        contract = self.repo.get_for_update(contract_id)
+        next_step = self.engine.get_next_step(contract.category, current_step=contract.step, action=action)
+        
+        # Syncing with SharePoint for document finalization
+        if next_step.is_final:
+            sharepoint_service.lock_document(contract.document_id)
+            
+        return self.repo.update_status(contract_id, next_step)

@@ -102,9 +102,11 @@ export default function ResumePage() {
                                                 <span className="flex items-center gap-1 underline underline-offset-4 decoration-white/20 hover:decoration-primary transition-colors cursor-pointer">Jakarta, Indonesia</span>
                                             </div>
                                         </div>
-                                        <Button className="bg-white text-black hover:bg-white/90 font-bold gap-2 font-sans">
-                                            <Download className="h-4 w-4" /> Download PDF
-                                        </Button>
+                                        <a href="/CV_Oktavian_Aji_2025.pdf" download="CV_Oktavian_Aji_2025.pdf">
+                                            <Button className="bg-white text-black hover:bg-white/90 font-bold gap-2 font-sans">
+                                                <Download className="h-4 w-4" /> Download PDF
+                                            </Button>
+                                        </a>
                                     </div>
 
                                     {/* Summary Section */}

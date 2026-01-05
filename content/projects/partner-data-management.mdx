@@ -1,40 +1,40 @@
 ---
-title: "Partner Data Management"
-description: "Centralizing and syncing enterprise partner data across sales and operations departments."
-date: "2023-06-01"
+title: "PRM: Vendor Performance & Procurement Intelligence"
+description: "Advancing the Partner and Resource Management system for Telkomsigma's IOP team, introducing automated vendor scoring and procurement data centralization."
+date: "2024-02-15"
 client: "Telkomsigma"
 role: "Backend Developer"
-stack: ["Node.js", "Express", "Oracle SQL", "REST API", "Swagger"]
-metrics: ["30% productivity boost", "Zero data duplication", "Unified API access"]
+stack: ["Django", "Vue 2", "Oracle SQL", "Chart.js"]
+metrics: ["Automated Vendor Scoring", "PO Data Centralization", "Real-time Procurement Dashboards"]
 ---
 
 ## The Challenge
 
-Telkomsigma struggled with fragmented partner data spread across multiple legacy systems and departments. This led to data duplication, inconsistent sales reporting, and operational inefficiencies for the sales teams.
+Following the initial phase of the PRM (Partner and Resource Management) system, the **Inbound & Outbound Procurement (IOP)** team required deeper functional capabilities. The existing system lacked the necessary data depth to evaluate vendor performance, track historical pricing, and visualize procurement trends, which are critical for strategic decision-making and vendor accountability.
 
-## System Architecture
+## The Solution
 
-We designed a centralized management system that acts as the single source of truth for all partner-related information.
+As a Backend Developer within an agile team, I collaborated closely with Business Process Owners (BPO) and IT System Analysts (ITSA) to translate complex business requirements into scalable technical solutions. We followed an iterative development process to ensure the enhancements precisely met the IOP team's operational needs.
 
-- **Centralized Registry**: Unified database schema to store diverse partner attributes.
-- **RESTful Gateway**: Secure APIs providing CRUD operations and search capabilities for other internal applications.
-- **Modular Service Layer**: Business logic separated from data access to allow for scalable future integrations.
+- **Dynamic Vendor Scoring**: I implemented the backend logic for a new scoring module. This feature evaluates vendors based on their historical performance data stored in the **Procurement List**, providing the IOP team with objective metrics for vendor selection.
+- **Procurement & Price Intelligence**: 
+    - **Procurement List**: Engineered a comprehensive repository for Purchase Order (PO) history, including detailed line-item tracking and scoring metrics.
+    - **Price List**: Developed a module to track and display vendor pricing history alongside PO records, ensuring transparency in procurement costs over time.
+- **Data-Driven Dashboard**: Built the backend APIs to support a new summary dashboard, providing real-time visualizations (charts and grids) of vendor transactions and procurement statuses.
+- **Legacy System Integration**: Successfully expanded the existing **Django** and **Oracle** backend while maintaining compatibility with the **Vue 2** frontend, ensuring a seamless transition and zero downtime for the existing modules.
 
-## Technical Implementation
-
-Used **Node.js** and **Express** for the core API, integrated with a legacy **Oracle SQL** database. We focused on building a robust service layer that could handle complex data validation rules.
-
-```javascript
-const syncPartnerData = async (partnerId, updates) => {
-    // 1. Validate incoming data
-    // 2. Transact with OracleDB
-    // 3. Notify downstream services via Webhooks
-}
-```
-
-## The Impact
-
-- **30% Increase** in sales team productivity by reducing time spent on manual data verification.
-- **Eliminated** cross-departmental data duplication.
-- **Improved** reporting accuracy for high-level management decision-making.
----
+```python
+# Backend Logic for Aggregating Vendor Performance Metrics
+class VendorPerformanceService:
+    @staticmethod
+    def get_scoring_data(vendor_id):
+        # Fetching historical PO data from Oracle DB
+        po_history = ProcurementList.objects.filter(vendor_id=vendor_id)
+        
+        # Complex aggregation for scoring based on procurement frequency and value
+        summary = {
+            'total_po': po_history.count(),
+            'total_value': sum(po.total_amount for po in po_history),
+            'last_score': po_history.latest('created_at').score if po_history.exists() else 0
+        }
+        return summary
