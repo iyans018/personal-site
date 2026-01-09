@@ -1,47 +1,40 @@
 ---
-title: "Mobile Timesheet Automation"
-description: "Automating reporting and data synchronization for company-wide activity and leave tracking."
-date: "2024-05-15"
+title: "MTS: Mobile Timesheet"
+description: "Optimizing employee productivity tracking through Airflow-driven automation and RabbitMQ-powered bulk processing."
+date: "2023-08-15"
 client: "Telkomsigma"
-role: "Senior Backend Developer"
-stack: ["Python", "Apache Airflow", "SQL", "DAGs"]
-metrics: ["Automated Daily Reporting", "Real-time background sync", "Zero manual reporting"]
+role: "Backend Developer"
+stack: ["Python", "Django", "Apache Airflow", "RabbitMQ", "Oracle DB"]
+metrics: ["Automated Timesheet Generation", "Zero-Lag Bulk Approvals", "Proactive Incident Resolution"]
 ---
 
 ## The Challenge
 
-Telkomsigma's internal leave and activity tracking system required manual intervention for generating daily reports and synchronizing data between the mobile application and the core enterprise databases. This was time-consuming and prone to human error.
+The Mobile Timesheet (MTS) system faced bottlenecks in processing high volumes of leave requests and activity logs. Manual synchronization of employee data and the sequential processing of bulk approvals often led to system timeouts and data inconsistency. Furthermore, the disconnect between leave approval and timesheet creation required a more robust background automation layer to ensure data integrity.
 
 ## The Solution
 
-I designed and implemented a series of **Apache Airflow DAGs** (Directed Acyclic Graphs) to fully automate the data pipeline and reporting workflows.
+Working within an iterative development lifecycle, I focused on enhancing the backend's reliability and automating core workforce workflows to minimize manual intervention.
 
-- **Automated Sync**: Background tasks that pull activity logs from the mobile database and push them to the central HR systems.
-- **Dynamic Reporting**: Daily automated generation of PDF/Excel reports sent directly to department heads.
-- **Monitoring**: Implemented robust error handling and alerting via Slack/Email if a sync task fails.
-
-## Technical Implementation
-
-The implementation focused on clean, idempotent Airflow tasks using Python.
+- **Workforce Automation with Apache Airflow**: Engineered complex schedulers (DAGs) to handle high-frequency background tasks:
+    - **Data Synchronization**: Automated daily employee data updates from the master HR system.
+    - **Automated Timesheet Lifecycle**: Developed a pipeline where approved leaves automatically trigger background timesheet creation and status updates, ensuring 100% synchronization between leave and attendance records.
+- **High-Throughput Bulk Processing**: Architected a parallel processing system using **RabbitMQ**. By offloading bulk leave approvals to a message queue, I enabled real-time status updates and ensured the system could handle hundreds of concurrent approvals without degrading user experience.
+- **Backend API Optimization**: Refactored the core activity logging and leave management APIs to reduce latency and improve the mobile application's responsiveness.
+- **Proactive Production Support**: Managed system monitoring and incident response, successfully identifying and resolving critical bugs in the approval logic and login authentication flows to maintain high system availability.
 
 ```python
+# Conceptual Airflow DAG for Leave-to-Timesheet Automation
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 
-def sync_timesheet_data():
-    # Logic to fetch from mobile API and push to HRDB
+def sync_leave_to_timesheet(leave_id):
+    # Logic to create timesheet entry after leave approval
+    # and update leave record status
     pass
 
-with DAG('timesheet_sync_v2', schedule_interval='@daily') as dag:
-    task_sync = PythonOperator(
-        task_id='sync_data',
-        python_callable=sync_timesheet_data
+with DAG('mts_leave_automation', schedule_interval='@hourly') as dag:
+    sync_task = PythonOperator(
+        task_id='process_approved_leaves',
+        python_callable=sync_leave_to_timesheet
     )
-```
-
-## The Impact
-
-- **100% Automation** of the reporting process, saving hours of manual work every week.
-- **Improved Data Accuracy**: Real-time synchronization ensured that leave balances and activity logs were always up-to-date across all platforms.
-- **Reliability**: The system's self-healing nature through Airflow retries significantly reduced downtime.
----
