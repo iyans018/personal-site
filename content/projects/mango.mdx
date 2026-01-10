@@ -1,0 +1,63 @@
+---
+title: "Mango: Enterprise HRIS & Organizational Lifecycle Management"
+description: "Streamlining Human Capital operations through an automated approval engine, multi-table data synchronization, and MS Graph cloud storage integration."
+date: "2023-11-10"
+client: "Telkomsigma"
+role: "Backend Developer"
+stack: ["Python 3.7", "Django", "Oracle DB", "MS Graph (SharePoint)"]
+metrics: ["Scalable Multi-Category Approval Engine", "Cloud-Integrated Document Verification", "Unified Resource Management"]
+---
+
+## The Challenge
+
+As the central HRIS for Telkomsigma, Mango needed to bridge the gap between employee self-service and corporate data integrity. The primary challenge was the launch of the **ESS (Employee Self Service)** application, which required a robust backend module within Mango for Human Capital (HC) officers to review and approve data changes.
+
+Technically, this was complex because:
+- **Heterogeneous Data Categories**: Each request (from personal info to medical records) had unique validation rules and impact levels.
+- **Complex Data Mapping**: A single approval category often didn't align 1-to-1 with database tables; approving one request could trigger updates across multiple Oracle tables.
+- **Verification Requirements**: HC required a way to verify physical documents (IDs, Certificates) uploaded by employees before granting approval.
+
+## The Solution
+
+I architected and developed the approval module in Mango, focusing on building a scalable foundation that could handle various types of employee requests with high data integrity.
+
+- **Unified Logic Handler (Strategy Pattern)**: Instead of writing redundant code for each category, I engineered a polymorphic handler using abstract functions. This provided a consistent interface for the approval API while allowing each category (Basic Info, Education, Medical, etc.) to implement its own unique update logic and validation.
+- **Automated Workflow & Monitoring**: Developed a comprehensive summary dashboard for HC. This allowed for real-time tracking of pending transactions categorized by urgency and request type, ensuring no request was left unreviewed.
+- **Seamless MS Graph Integration**: Integrated Mango with **MS Graph API** to handle document management. Uploaded verification files from ESS are automatically routed through Mango, verified, and stored securely in **SharePoint**, ensuring the system remains compliant with enterprise document storage policies.
+- **Atomic Multi-Table Updates**: Implemented robust transaction handling to manage complex 1-to-many table mappings. This ensured that if a request impacted multiple tables, the update would either succeed completely or roll back, preventing data inconsistency.
+
+```python
+# Conceptual Implementation of the Unified Request Handler
+from abc import ABC, abstractmethod
+
+class BaseUpdateHandler(ABC):
+    @abstractmethod
+    def validate(self, request_data):
+        """Validate category-specific data"""
+        pass
+
+    @abstractmethod
+    def apply_update(self, request_data):
+        """Logic to update one or multiple Oracle tables"""
+        pass
+
+class EducationUpdateHandler(BaseUpdateHandler):
+    def validate(self, request_data):
+        # Specific validation for education documents
+        return True
+
+    def apply_update(self, request_data):
+        # Updates 'EMP_EDUCATION' and 'EMP_HISTORY' tables
+        # Also triggers SharePoint upload via MS Graph
+        pass
+
+# Factory to route the request to the correct handler
+class HandlerFactory:
+    _handlers = {
+        'EDUCATION': EducationUpdateHandler(),
+        # Other categories...
+    }
+    
+    @classmethod
+    def get_handler(cls, category):
+        return cls._handlers.get(category)
