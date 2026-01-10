@@ -1,0 +1,47 @@
+---
+title: "Peppers: Enterprise Resource Allocation & Productivity Ecosystem"
+description: "Modernizing legacy HRMS through Airflow orchestration, API decoupling, and architectural refactoring for high-scale resource management."
+date: "2024-01-20"
+client: "Internal Enterprise"
+role: "Backend Developer"
+stack: ["Python", "Django", "Apache Airflow", "Oracle DB", "MS Teams"]
+metrics: ["85% Reduction in API Latency", "Centralized Workflow Monitoring", "Modular Layered Architecture"]
+---
+
+## The Challenge
+
+Peppers serves as the backbone for organizational resource management, but it was hindered by significant technical debt. The system relied heavily on database-level schedulers, making debugging and maintenance nearly impossible due to the lack of observability. 
+
+Performance was another critical issue; the productivity module's main dashboard took over 8 seconds to load because it processed complex aggregation and list data within a single, monolithic API. Furthermore, as a legacy system, the codebase lacked a standardized structure and suffered from non-explicit coding practices like wildcard imports, which compromised maintainability and scalability.
+
+## The Solution
+
+I led a series of strategic refactoring and optimization initiatives to transform Peppers into a more resilient and performant enterprise application.
+
+- **Centralized Orchestration with Apache Airflow**: Migrated all database-level schedulers to Python-based DAGs. This shift provided a centralized dashboard for monitoring, automated retry mechanisms, and drastically reduced the time spent on debugging failed background jobs.
+- **Performance-Driven API Decoupling**: Re-engineered the productivity module by splitting the monolithic API into two distinct endpoints: one for statistical aggregation and another for resource listing. 
+    - **Optimization**: Implemented database indexing on Oracle and integrated lazy loading on the frontend.
+    - **Result**: Reduced average response time from **8 seconds to 1.2 seconds**, significantly enhancing the user experience.
+- **Architectural Modernization**: Initiated a gradual transition to a **Layered Architecture** (Repository -> Service -> View). By decoupling business logic from data access, I improved the testability of the code.
+- **Enhanced Code Quality**: Standardized the codebase by enforcing PEP 8 practices and replacing wildcard imports with explicit definitions, ensuring better clarity and reducing potential namespace conflicts.
+- **Workflow Automation Integration**: Integrated the MS Teams Messenger API to provide real-time notifications for the multi-level approval process, ensuring stakeholders are promptly informed of pending resource bookings.
+
+```python
+# Example of the new Layered Architecture: Service Layer implementation
+# This decoupling ensures business logic is separated from the Django View.
+
+class ResourceService:
+    def __init__(self, repository):
+        self.repository = repository
+
+    def get_resource_productivity_summary(self, employee_id):
+        # Business logic for calculating statistics
+        data = self.repository.fetch_productivity_metrics(employee_id)
+        return self._format_summary(data)
+
+    def _format_summary(self, data):
+        # Formatting logic for the summary API
+        return {
+            "total_hours": sum(d.hours for d in data),
+            "utilization_rate": calculate_rate(data)
+        }
