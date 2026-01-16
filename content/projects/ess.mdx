@@ -1,0 +1,42 @@
+---
+title: "ESS: Backend Engineering Mentorship & Standards Governance"
+description: "Accelerating junior talent through 1-on-1 technical coaching, emphasizing API-first design, layered architecture, and rational technical decision-making."
+date: "2024-05-10"
+client: "Telkomsigma"
+role: "Technical Mentor / Senior Backend Developer"
+stack: ["Backend Mentorship", "API Design (OpenAPI)", "Layered Architecture", "PEP 8", "Git Flow"]
+metrics: ["Successful Mentee Onboarding", "Production-Ready Code Delivery", "Zero-Friction FE-BE Integration"]
+---
+
+## The Challenge
+
+The Employee Self-Service (ESS) project was a high-stakes initiative involving sensitive Human Capital data. My primary responsibility, beyond the technical scope, was to **mentor a Backend Intern** to ensure they could deliver production-ready code that met the company's rigorous engineering standards. 
+
+The challenge was to transform a junior-level developer into a reliable contributor who could:
+- Navigate complex HR business logic.
+- Write clean, maintainable, and standardized Python code.
+- Communicate effectively with the Frontend (FE) team to ensure seamless integration.
+
+## The Mentorship Solution
+
+I implemented a structured 1-on-1 coaching framework focused on technical excellence and professional growth:
+
+- **Engineering Standards Governance**: I guided the mentee in implementing **PEP 8** standards and a **Layered Architecture** (Repo -> Service -> View). This ensured the code was not only functional but also modular and consistent with our enterprise codebase.
+- **API-First Strategy with OpenAPI**: To prevent integration bottlenecks, I taught the mentee to start development with **API Contracts (Swagger/OpenAPI)**. This established a single source of truth for both FE and BE, reducing back-and-forth communication and accelerating the development cycle.
+- **Rational Technical Decision-Making**: I coached the mentee to not just "write code," but to understand the **Pros and Cons** of every technical choice. We held frequent discussions to evaluate different approaches, ensuring every decision was backed by a solid technical rationale.
+- **Cross-Functional Synergy**: I acted as a facilitator to build empathy between the mentee and the Frontend team. By teaching the mentee how to design APIs from the consumer's perspective, we ensured a smoother and more collaborative development process.
+- **Business-to-Logic Translation**: I helped the mentee deconstruct complex HR workflows into clean business logic, ensuring they understood the "Why" behind the data updates they were implementing.
+- **Active Feedback & Problem Solving**: Through regular code reviews and brainstorming sessions, I provided continuous feedback. We tackled bottlenecks together, fostering a proactive problem-solving mindset in the mentee.
+
+```python
+# Mentorship Focus: Teaching "Clean Separation of Concerns"
+# I guided the mentee to move logic from monolithic views to clean Service classes.
+
+class EmployeeUpdateService:
+    def __init__(self, repository):
+        self.repository = repository
+
+    def process_request(self, user_id, data):
+        # I taught the mentee to handle validation & logic here, 
+        # keeping the view (controller) thin and readable.
+        if self._is
