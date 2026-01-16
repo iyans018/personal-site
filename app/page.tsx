@@ -116,39 +116,42 @@ export default function Home() {
           <p className="mt-2 text-muted-foreground">Solving real-world problems with scalable architecture.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Link href="/projects/partner-data-management" className="relative overflow-hidden rounded-xl border border-border bg-card p-6 flex flex-col group glow-hover h-full transition-transform hover:-translate-y-1">
+          <Link href="/projects/digipactum" className="relative overflow-hidden rounded-xl border border-border bg-card p-6 flex flex-col group glow-hover h-full transition-transform hover:-translate-y-1">
             <div className="absolute top-0 right-0 p-4 opacity-50 group-hover:opacity-100 transition-opacity">
               <Database className="h-8 w-8 text-primary" />
             </div>
             <div className="mb-4">
               <span className="text-xs font-bold uppercase tracking-wider text-primary">Enterprise</span>
             </div>
-            <h3 className="text-xl font-bold text-foreground mb-2">Partner Data Management</h3>
-            <p className="text-xs font-medium text-muted-foreground/80 mb-4 italic">Centralization for Operational Excellence.</p>
+            <h3 className="text-xl font-bold text-foreground mb-2">Digipactum: Enterprise Contract Lifecycle</h3>
+            <p className="text-xs font-medium text-muted-foreground/80 mb-4 italic">Modernizing legacy legal operations through dynamic workflow automation and hybrid-database architecture.</p>
             <p className="text-sm text-muted-foreground mb-6 flex-grow">
-              Built a centralized registry to unify partner information across departments. Developed scalable REST APIs improving cross-team productivity and eliminating data duplication.
+              I modernized legacy legal systems into an enterprise CLM, architecting a dynamic workflow engine and hybrid database (Oracle/MongoDB) that reduced drafting time by 70% and eliminated operational bottlenecks through automated orchestration.
             </p>
             <div className="flex flex-wrap gap-2 mt-auto">
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">REST API</span>
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Oracle SQL</span>
+              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Python</span>
+              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Django</span>
+              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Celery</span>
+              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Redis</span>
             </div>
           </Link>
 
-          <Link href="/projects/enterprise-legal-system" className="relative overflow-hidden rounded-xl border border-border bg-card p-6 flex flex-col group glow-hover h-full transition-transform hover:-translate-y-1">
+          <Link href="/projects/app-hub" className="relative overflow-hidden rounded-xl border border-border bg-card p-6 flex flex-col group glow-hover h-full transition-transform hover:-translate-y-1">
             <div className="absolute top-0 right-0 p-4 opacity-50 group-hover:opacity-100 transition-opacity">
               <Gavel className="h-8 w-8 text-primary" />
             </div>
             <div className="mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-primary">Legal Tech</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-primary">Enterprise</span>
             </div>
-            <h3 className="text-xl font-bold text-foreground mb-2">Legal Contract Approval System</h3>
-            <p className="text-xs font-medium text-muted-foreground/80 mb-4 italic">Workflow Automation at Scale.</p>
+            <h3 className="text-xl font-bold text-foreground mb-2">Application Hub: Unified Enterprise SSO</h3>
+            <p className="text-xs font-medium text-muted-foreground/80 mb-4 italic">Unified enterprise access via custom ticketing and RabbitMQ.</p>
             <p className="text-sm text-muted-foreground mb-6 flex-grow">
-              Digitized end-to-end legal workflows using Django and SharePoint. Integrated Celery/RabbitMQ for async processing, reducing average approval time by 50%.
+              I architected a centralized SSO platform using CAS-inspired ticketing. By implementing event-driven logout via RabbitMQ, I unified authentication across diverse tech stacks, ensuring seamless user access and secure, real-time global session revocation.
             </p>
             <div className="flex flex-wrap gap-2 mt-auto">
               <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Python</span>
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">SharePoint</span>
+              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Django</span>
+              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">RabbitMQ</span>
             </div>
           </Link>
 
@@ -157,16 +160,17 @@ export default function Home() {
               <ShoppingCart className="h-8 w-8 text-primary" />
             </div>
             <div className="mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-primary">E-Commerce</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-primary">Finance</span>
             </div>
-            <h3 className="text-xl font-bold text-foreground mb-2">ModuCommerce</h3>
-            <p className="text-xs font-medium text-muted-foreground/80 mb-4 italic">Event-Driven Microservices Simulation.</p>
+            <h3 className="text-xl font-bold text-foreground mb-2">Ledger Core: High-Integrity Financial Engine</h3>
+            <p className="text-xs font-medium text-muted-foreground/80 mb-4 italic">Immutable double-entry ledger with strict idempotency and fault-tolerance..</p>
             <p className="text-sm text-muted-foreground mb-6 flex-grow">
-              Developed a scalable e-commerce simulation using Pub/Sub patterns. Decoupled services allowed for independent scaling of inventory, order processing, and notification systems.
+              I engineered an immutable double-entry ledger featuring derived-state balances and strict idempotency. Through rigorous failure simulations, I guaranteed 100% financial integrity, preventing data drift and duplicate transactions even during concurrent system crashes.
             </p>
             <div className="flex flex-wrap gap-2 mt-auto">
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Pub/Sub</span>
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Scalability</span>
+              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Go</span>
+              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Echo</span>
+              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">PostgreSQL</span>
             </div>
           </Link>
         </div>
