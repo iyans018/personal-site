@@ -1,0 +1,57 @@
+---
+title: "Application Hub: Unified Single Sign-On & Centralized Identity Provider"
+description: "Streamlining enterprise access through a custom ticketing authentication system and event-driven distributed logout orchestration."
+date: "2024-03-05"
+client: "Telkomsigma"
+role: "Backend Developer / System Architect"
+stack: ["Python", "Django", "RabbitMQ", "Redis", "JWT/Session"]
+metrics: ["Unified Single Sign-On (SSO)", "Cross-Platform Session Revocation", "Zero-Credential Exposure to Clients"]
+---
+
+## The Challenge
+
+Telkomsigma's internal ecosystem was fragmented across multiple applications, each with its own domain and authentication silo. This created several critical issues:
+- **User Friction**: Users had to memorize multiple URLs and re-authenticate every time a session expired or when switching apps.
+- **Auth Heterogeneity**: Integration was difficult because different apps used different mechanisms—some relied on **JWT**, while others used **Server-side Sessions**.
+- **The Logout Dilemma**: There was no synchronized way to invalidate access. Logging out of the main portal didn't revoke active tokens/sessions in the client applications, posing a significant security risk.
+
+## The Solution
+
+I architected a centralized **Application Hub** that acts as the single source of truth for identity and authorization, implementing a "Login Once, Access Anywhere" workflow.
+
+- **Custom Ticketing Mechanism**: Instead of passing sensitive credentials, I implemented a ticketing system inspired by the **CAS (Central Authentication Service)** protocol. 
+    - The Hub acts as the **Ticket Authority**. 
+    - When a user targets a client app, the Hub issues a short-lived, one-time ticket.
+    - The client app then validates this ticket back to the Hub's internal API to exchange it for its own local session or JWT.
+- **Decoupled Client Integration**: This approach made the system dynamic. Client apps only need minimal adjustments to trust the Hub’s tickets, regardless of their internal tech stack (Python, Java, PHP, etc.).
+- **Event-Driven Distributed Logout**: To solve the global revocation issue, I designed an event-based architecture using a **Message Broker (RabbitMQ)**:
+    - **Trigger**: A logout action in the Hub or any client app sends a 'Revoke' event to the broker.
+    - **Orchestration**: A dedicated service consumes these messages and concurrently hits the registered `revoke_token` endpoints of all active client apps for that specific user.
+    - **Security**: This ensures that a single logout action invalidates the user's entire digital footprint across the ecosystem in near real-time.
+
+```python
+# Conceptual Implementation of Distributed Logout Event
+import json
+import pika
+
+def trigger_global_logout(user_id, session_key):
+    # 1. Clear Local Session
+    # 2. Publish Revocation Event to Message Broker
+    connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+    channel = connection.channel()
+    
+    message = {
+        "event": "USER_LOGOUT",
+        "user_id": user_id,
+        "session_key": session_key
+    }
+    
+    channel.basic_publish(
+        exchange='auth_events',
+        routing_key='logout.broadcast',
+        body=json.dumps(message)
+    )
+    connection.close()
+
+# Consumer service on Client Apps side would then 
+# intercept this and invalidate local tokens.
