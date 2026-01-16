@@ -11,10 +11,10 @@ export default function ResumePage() {
     const [isComplete, setIsComplete] = useState(false)
 
     const lines = [
-        { type: "command", text: "git checkout -b oktavian-aji-2025" },
-        { type: "info", text: "Switched to a new branch 'oktavian-aji-2025'" },
-        { type: "command", text: "cat oktavian_aji_cv_2025.md" },
-        { type: "fetching", text: "Fetching resource from local/assets/resume_latest..." },
+        { type: "command", text: "git checkout main" },
+        { type: "info", text: "Switched to branch 'main'" },
+        { type: "command", text: "cat OKTAVIAN_AJI_CV.md" },
+        { type: "fetching", text: "Fetching resource from local/storage/resume_final_2026..." },
     ]
 
     useEffect(() => {
@@ -102,16 +102,16 @@ export default function ResumePage() {
                                                 <span className="flex items-center gap-1 underline underline-offset-4 decoration-white/20 hover:decoration-primary transition-colors cursor-pointer">Jakarta, Indonesia</span>
                                             </div>
                                         </div>
-                                        <a href="/CV_Oktavian_Aji_2025.pdf" download="CV_Oktavian_Aji_2025.pdf">
+                                        <a href="/OKTAVIAN_AJI_CV.md" download="OKTAVIAN_AJI_CV.md">
                                             <Button className="bg-white text-black hover:bg-white/90 font-bold gap-2 font-sans">
-                                                <Download className="h-4 w-4" /> Download PDF
+                                                <Download className="h-4 w-4" /> Download CV (.md)
                                             </Button>
                                         </a>
                                     </div>
 
                                     {/* Summary Section */}
                                     <div className="text-muted-foreground leading-relaxed text-sm max-w-3xl">
-                                        <p>Versatile Software Engineer with 3+ years of experience delivering end-to-end web solutions. Currently working at <span className="text-white font-bold">Telkomsigma</span> building enterprise-grade systems while upskilling in Data Engineering and Advanced System Design.</p>
+                                        <p>Versatile Software Engineer with <span className="text-white font-bold">3+ years of experience</span> delivering end-to-end enterprise solutions. Specializing in <span className="text-primary italic font-bold">scalable backends</span>, distributed systems, and event-driven architectures. Currently focused on building high-integrity systems at <span className="text-white font-bold">Telkomsigma</span> while mastering Fintech core principles and advanced system design (DDIA).</p>
                                     </div>
 
                                     {/* Resume Grid */}
@@ -138,11 +138,11 @@ export default function ResumePage() {
                                                             <p className="text-sm font-bold text-primary italic">PT SIGMA CIPTA CARAKA (Telkomsigma)</p>
                                                         </div>
                                                         <ul className="text-sm text-muted-foreground list-disc list-outside ml-4 space-y-2 leading-relaxed">
-                                                            <li>Designed and developed a <span className="text-white">legal contract approval system</span>, reducing processing time by <span className="text-primary italic font-bold">50%</span> through workflow optimization.</li>
-                                                            <li>Built a centralized partner data management application to unify sales information, improving accuracy and productivity.</li>
-                                                            <li>Enhanced API performance for leave request modules by refactoring inefficient queries and optimizing logic.</li>
-                                                            <li>Implemented seamless file integration between backend systems and <span className="text-white">Microsoft SharePoint</span> via REST APIs.</li>
-                                                            <li>Redesigned heavy POST API workflows using <span className="text-white">Celery</span> for asynchronous offloading, increasing system throughput.</li>
+                                                            <li>Modernized legacy legal systems into an <span className="text-white">enterprise CLM (Digipactum)</span>, reducing processing time by <span className="text-primary italic font-bold">50%</span> through dynamic workflow engines.</li>
+                                                            <li>Architected high-integrity background processing using <span className="text-white">Celery & RabbitMQ</span> to handle heavy asynchronous tasks.</li>
+                                                            <li>Enhanced system synchronization by implementing <span className="text-white">Apache Airflow</span> DAGs for automated workforce data processing.</li>
+                                                            <li>Implemented seamless multi-service integration between core backends and <span className="text-white">Microsoft SharePoint</span> via REST APIs.</li>
+                                                            <li>Optimized mission-critical API performance by refactoring complex queries and logic, improving system responsiveness.</li>
                                                         </ul>
                                                     </div>
 
@@ -156,9 +156,9 @@ export default function ResumePage() {
                                                             <p className="text-sm font-bold text-primary italic">Ravenry</p>
                                                         </div>
                                                         <ul className="text-sm text-muted-foreground list-disc list-outside ml-4 space-y-2 leading-relaxed">
-                                                            <li>Contributed to major UI revamps and API updates across internal services.</li>
-                                                            <li>Developed a pub/sub integration solution for inter-service communication.</li>
-                                                            <li>Automated QA workflows using <span className="text-white font-serif italic">Cypress</span>, significantly reducing regression bugs.</li>
+                                                            <li>Contributed to major UI revamps and API updates for internal services.</li>
+                                                            <li>Developed a <span className="text-white">pub/sub integration</span> solution for inter-service communication.</li>
+                                                            <li>Automated QA workflows using <span className="text-white font-serif italic">Cypress</span>, reducing regression bugs.</li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -173,10 +173,10 @@ export default function ResumePage() {
                                                 </div>
                                                 <div className="grid grid-cols-1 gap-4">
                                                     {[
-                                                        { name: "Legal Contract System", tech: "Python, Django, Oracle SQL, SharePoint", impact: "50% faster processing" },
-                                                        { name: "Partner Data Management", tech: "REST APIs, Service Layers, SQL", impact: "Unified data access" },
-                                                        { name: "Mobile Timesheet DAGs", tech: "Apache Airflow, Python", impact: "Automated sync & reporting" },
-                                                        { name: "ModuCommerce", tech: "Node.js, Microservices, RabbitMQ", impact: "Event-driven architecture" }
+                                                        { name: "Ledger Core", tech: "Go, Echo, PostgreSQL", impact: "100% Financial Integrity" },
+                                                        { name: "Application Hub", tech: "Python, Django, RabbitMQ", impact: "Unified Enterprise SSO" },
+                                                        { name: "Digipactum CLM", tech: "Python, Django, Oracle, MongoDB", impact: "70% Faster Drafting" },
+                                                        { name: "Mobile Timesheet", tech: "Airflow, RabbitMQ, Python", impact: "Automated Workforce Sync" }
                                                     ].map((p, i) => (
                                                         <div key={i} className="p-4 bg-white/5 rounded-lg border border-white/5 flex flex-col gap-1 hover:border-primary/30 transition-colors">
                                                             <div className="flex justify-between">
@@ -200,10 +200,10 @@ export default function ResumePage() {
                                                 </div>
                                                 <div className="flex flex-col gap-6">
                                                     {[
-                                                        { label: "Backend", techs: ["Python (Django/FastAPI)", "Node.js", "Go", "Echo/Fiber"] },
-                                                        { label: "Data & Infra", techs: ["PostgreSQL", "Oracle", "Redis", "Celery", "RabbitMQ"] },
-                                                        { label: "DevOps", techs: ["Docker", "GitLab CI/CD", "Apache Airflow", "Jenkins", "Rancher"] },
-                                                        { label: "Frontend", techs: ["Vue/Nuxt", "React/Next", "TailwindCSS"] }
+                                                        { label: "Backend", techs: ["Python (Django/FastAPI)", "Go (Echo/Fiber)", "Node.js"] },
+                                                        { label: "Data & Messaging", techs: ["PostgreSQL", "Oracle", "Redis", "RabbitMQ", "Celery"] },
+                                                        { label: "Infrastructure", techs: ["Docker", "GitLab CI/CD", "Apache Airflow", "Rancher"] },
+                                                        { label: "Frontend", techs: ["React/Next.js", "Vue/Nuxt", "TailwindCSS"] }
                                                     ].map((item) => (
                                                         <div key={item.label} className="flex flex-col gap-2">
                                                             <p className="text-[10px] font-bold text-primary uppercase tracking-tighter">{item.label}</p>
@@ -251,7 +251,7 @@ export default function ResumePage() {
                                     {/* Footer Message */}
                                     <div className="mt-10 pt-10 border-t border-white/5 text-center">
                                         <p className="text-xs text-muted-foreground italic font-sans text-center">
-                                            -- Last updated: 2025.12.30 --
+                                            -- Last updated: 2026.01.16 --
                                         </p>
                                     </div>
                                 </motion.div>
