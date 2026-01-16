@@ -1,37 +1,66 @@
 ---
-title: "Finance Ledger Core"
-description: "A high-performance crypto exchange backend handling 10k transactions per second."
-date: "2024-01-01"
-client: "CryptoStartup Inc."
-role: "Lead Backend Engineer"
-stack: ["Go", "gRPC", "RabbitMQ", "PostgreSQL"]
-metrics: ["10k TPS", "99.99% Uptime", "<10ms Latency"]
+title: "Ledger Core: High-Integrity Double-Entry & Fault-Tolerant Accounting System"
+description: "Engineering an immutable financial engine with strict idempotency, rigorous failure simulation, and derived-state balance management."
+date: "2024-06-15"
+client: "Internal Finance/Fintech"
+role: "Core Backend Engineer"
+stack: ["Go", "Echo", "PostgreSQL", "Redis (Distributed Locking)", "RabbitMQ"]
+metrics: ["Zero Invariant Violation", "100% Transaction Idempotency", "Sub-millisecond Consistency Check"]
 ---
 
 ## The Challenge
 
-Building a reliable and scalable matching engine for a new cryptocurrency exchange. The system needed to handle high concurrency and ensure atomic transactions without data loss.
+Building a financial core requires more than just CRUD operations. The system must guarantee that not a single cent is lost or duplicated, even during network partitions or system crashes. 
 
-## System Architecture
+The primary challenge was moving away from the "Balance-in-Table" anti-pattern and building a system that can handle:
+- **The "Two Generals" Problem**: Handling retries when the client doesn't know if the request reached the server or if the response was lost.
+- **Concurrency & Race Conditions**: Ensuring multiple simultaneous transactions on the same account don't lead to over-spending.
+- **Partial Failures**: Preventing "half-baked" transactions where a credit is recorded but the debit fails due to a sudden crash.
 
-We adopted a microservices architecture using **Go** for high throughput.
+## The Solution
 
-- **Matching Engine**: In-memory order book for sub-millisecond matching.
-- **Order Service**: Handles validations and persistence.
-- **Wallet Service**: Manages hot/cold wallet transactions.
+I designed the Ledger Core as a "Source of Truth" engine based on strict accounting principles and defensive programming.
 
-## Technical Implementation
+- **Immutable Double-Entry Journal**: Implemented an **append-only** architecture. Every transaction is a set of balanced journal entries. There are no `UPDATE` or `DELETE` operations on transactions; corrections are made via reversal entries, ensuring a perfect audit trail.
+- **Derived State Balance**: Instead of treating a `balance` column as the source of truth, the system calculates balances by aggregating the journal. This prevents data drift and ensures the balance always matches the transaction history.
+- **Strict Idempotency Layer**: Engineered an idempotent API using unique `idempotency_key` (request-based). This allows clients to safely retry requests after a timeout without fear of double-charging the user.
+- **Concurrency Control**: Utilized database-level row locking (`SELECT FOR UPDATE`) and distributed locks to ensure atomic updates to account states.
 
-We used **RabbitMQ** for asynchronous communication between services to decouple the matching engine from the persistence layer.
+### Failure Simulation & Resilience (The Differentiator)
+Unlike standard applications, this core was battle-tested against a **Failure Matrix**:
+- **Duplicate Request Handling**: Verified that identical `request_ids` never result in duplicate entries.
+- **Partial Posting Recovery**: Simulated crashes mid-transaction to ensure the system maintains **Atomicity**.
+- **Out-of-Order Events**: Designed the logic to handle cases where "Event B" arrives before "Event A" using sequence numbers and timestamps.
 
-```go
-func (m *MatchingEngine) ProcessOrder(order *Order) {
-    // Matching logic
-}
-```
+### Mandatory Artifacts
+- **Invariant List**: A strict set of rules (e.g., `Sum(Credits) - Sum(Debits) == 0`) that are checked after every operation.
+- **Post-Mortem Reports (Simulated)**: Detailed analysis of how the system behaved during "fake" production outages, identifying potential bottlenecks before they occur.
 
-## The Impact
+```python
+# Conceptual Implementation of an Atomic Double-Entry Posting
+from django.db import transaction
 
-- Successfully handled **10,000 transactions per second** during load testing.
-- Maintained **99.99% availability** during the launch week.
-- Reduced order processing latency to **under 10ms**.
+class LedgerEngine:
+    @transaction.atomic
+    def post_transaction(self, request_id, entries):
+        # 1. Check Idempotency (prevent duplicate request)
+        if Journal.objects.filter(request_id=request_id).exists():
+            return "ALREADY_PROCESSED"
+
+        # 2. Sort entries to prevent Deadlocks
+        sorted_entries = sorted(entries, key=lambda x: x['account_id'])
+        
+        # 3. Process each entry with Row-Level Locking
+        for entry in sorted_entries:
+            account = Account.objects.select_for_update().get(id=entry['account_id'])
+            
+            # Check Invariant (e.g., No Negative Balance for specific types)
+            if not account.can_be_negative and (account.balance + entry['amount'] < 0):
+                raise InvariantViolation("Insufficient funds")
+                
+            Journal.objects.create(
+                request_id=request_id,
+                account=account,
+                amount=entry['amount'], # Credit is (+), Debit is (-)
+                entry_type=entry['type']
+            )
