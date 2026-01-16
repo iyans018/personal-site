@@ -1,43 +1,60 @@
 ---
-title: "Digipactum (Digital Pactum)"
-description: "A ground-up digitalization of legal contract workflows, introducing a unit-wide standardized layered architecture and AI-driven document intelligence."
-date: "2024-03-01"
-client: "Telkomsigma"
-role: "Backend Developer"
-stack: ["Django", "Vue 3", "Oracle DB", "Redis", "Celery", "SharePoint", "AI/NLP"]
-metrics: ["Unit-Wide Architecture Standard", "Dynamic Workflow Flexibility", "Real-Time Workload Transparency"]
+title: "Digipactum: Enterprise Contract Lifecycle Management (CLM) Transformation"
+description: "Modernizing legacy legal operations through a dynamic workflow engine, automated document templating, and multi-service enterprise integration."
+date: "2024-01-15"
+client: "Enterprise Legal Department"
+role: "Backend Engineer / System Architect"
+stack: ["Python 3.9", "Django", "Oracle 11g", "MongoDB", "Celery", "Redis"]
+metrics: ["70% Faster Document Drafting", "Zero-Manual Workflow Transitions", "Automated Executive Summaries"]
 ---
 
 ## The Challenge
 
-Telkomsigma needed a unified system to manage diverse contract categories—Sales, Procurement, and Partnership—each with distinct approval logic. The existing manual processes were opaque, making it difficult to track a contract's position or a Legal Officer's workload. Additionally, the development unit required a more robust, scalable backend structure to avoid technical debt in long-term enterprise projects.
+The organization relied on an obsolete PHP 5 legacy system to manage its legal contracts. This created significant operational friction and technical debt that hindered business growth:
+
+- **Rigid Architecture**: Workflows were hardcoded at the script level. Any change in the approval chain required a code deployment, making the system unresponsive to business policy changes.
+- **Manual "Ping-Pong" Processes**: The lack of an integrated editor forced legal teams to download, manually edit, and re-upload documents. Coordination with stakeholders happened offline, leading to severe bottlenecks.
+- **Data Invisibility**: Management lacked real-time insights into the legal workload, with no centralized dashboard to identify stalled contracts or monitor staff performance.
 
 ## The Solution
 
-Working within an iterative collaborative framework involving **Business Process Owners (BPO)** for requirements and **IT System Analysts (ITSA)** for system design, I executed the backend development of Digipactum from scratch.
+I led the backend modernization of **Digipactum**, transforming it into a proactive CLM platform that automates the entire contract lifecycle—from initial drafting to final digital approval.
 
-- **Standardized Layered Architecture**: I designed and implemented a backend structure based on a clean layered architecture (Separating Service, Repository, and Controller logic). This design was so effective in terms of maintainability and testability that it was adopted as the official **Project Structure Standard** for all Backend development within the unit.
-- **Dynamic Workflow Engine**: To handle varying business processes for Sales or Procurement contracts, I built a configurable engine. This allows administrators to define and adjust approval flows through the system UI, enabling the business to adapt to process changes without requiring new code deployments.
-- **SharePoint Online Integration**: Developed a seamless document generation flow. The system duplicates existing legal templates in **Microsoft SharePoint** and allows users to perform **online editing** directly within the web app, ensuring all versions are centralized and securely stored.
-- **AI-Driven Executive Summaries**: Integrated AI capabilities to parse complex legal documents. The system provides automated summary suggestions, which are then used to populate Executive Summary documents, significantly speeding up the review phase.
-- **Operational Visibility (Dashboard & My Basket)**: 
-    - **Dashboard**: Created a real-time monitoring hub to track contract statuses and Legal Officer workloads.
-    - **My Basket**: Implemented a personalized task management feature, allowing users to instantly identify and execute pending actions (Approve/Reject) on contracts assigned to them.
+- **Dynamic Workflow Orchestration**: Instead of static code, I engineered a database-driven workflow engine. This allows for complex, multi-stage approval paths (Sales & Procurement) that can be reconfigured without downtime. I utilized **Celery & Redis** to handle asynchronous notifications (Email & MS Teams) and automated task assignments.
+- **Intelligent Document Templating & Online Editor**: To eliminate manual drafting, I implemented a tagging-based templating system. The system automatically injects user data into pre-approved legal templates. I also integrated a web-based WYSIWYG editor to enable in-app document modification, removing the need for external file handling.
+- **Hybrid Data Strategy**: I designed a dual-database architecture. **Oracle 11g** ensures transactional integrity for core contract data, while **MongoDB** provides the flexibility needed for unstructured AI-generated summaries and document metadata.
+- **Enterprise Service Bus Integration**: Digipactum serves as a central hub, integrating with **Alfresco** for secure document storage and various internal services (MIS, Patricia, Grantha) to ensure a unified data ecosystem across the enterprise.
 
 ```python
-# Implementation of the Layered Architecture Pattern (Service Layer)
-class ContractApprovalService:
-    def __init__(self, repository: ContractRepository, workflow_engine: DynamicWorkflowEngine):
-        self.repo = repository
-        self.engine = workflow_engine
+# Conceptual Implementation of the Dynamic Workflow State Machine
+class WorkflowEngine:
+    def __init__(self, contract_id):
+        self.contract = Contract.objects.get(id=contract_id)
+        self.config = self._load_workflow_config()
 
-    def process_transition(self, contract_id, action, user_id):
-        # Business logic separated from the View/Controller
-        contract = self.repo.get_for_update(contract_id)
-        next_step = self.engine.get_next_step(contract.category, current_step=contract.step, action=action)
-        
-        # Syncing with SharePoint for document finalization
-        if next_step.is_final:
-            sharepoint_service.lock_document(contract.document_id)
+    def _load_workflow_config(self):
+        # Fetching dynamic steps from Database instead of hardcoded logic
+        return WorkflowMap.objects.filter(category=self.contract.type).order_by('step_order')
+
+    def move_to_next_step(self, actor_id, action):
+        """
+        Handles transition logic, permission validation, 
+        and triggers asynchronous notifications.
+        """
+        current_step = self.contract.current_step
+        if self._validate_action(current_step, actor_id, action):
+            next_step = self._calculate_next_state(current_step, action)
             
-        return self.repo.update_status(contract_id, next_step)
+            # Execute background tasks for notifications and logs
+            trigger_notification.delay(next_step.assignee_group, self.contract.no_lo)
+            
+            self.contract.status = next_step.status
+            self.contract.save()
+
+# Example of Template Tagging Replacement Logic
+def generate_contract_document(template_id, context_data):
+    template = ContractTemplate.objects.get(id=template_id)
+    # Replaces tags like {{client_name}} or {{contract_value}} 
+    # with validated data from the UI
+    processed_content = template.engine.render(context_data)
+    return processed_content
