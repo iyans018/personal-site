@@ -1,6 +1,7 @@
 import { getPostBySlug, getAllPosts } from "@/lib/mdx"
 import { MDXRemote } from "next-mdx-remote/rsc"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowLeft, Clock, Calendar, Share2, Twitter, Linkedin, Copy } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import remarkGfm from "remark-gfm"
@@ -77,6 +78,18 @@ export default async function BlogPost({ params }: { params: Params }) {
 
             {/* 2. Content Section */}
             <article className="container max-w-[800px] px-4 md:px-0 mx-auto py-12">
+                {post.metadata.thumbnail && (
+                    <div className="mb-10 rounded-2xl overflow-hidden border border-border shadow-xl">
+                        <Image
+                            src={post.metadata.thumbnail}
+                            alt={post.metadata.title}
+                            width={1200}
+                            height={630}
+                            className="w-full h-auto object-cover"
+                            priority
+                        />
+                    </div>
+                )}
                 <div className="prose prose-lg dark:prose-invert prose-headings:font-bold prose-blue max-w-none 
                     prose-p:leading-relaxed prose-p:text-muted-foreground prose-headings:text-foreground
                     prose-li:text-muted-foreground prose-strong:text-foreground

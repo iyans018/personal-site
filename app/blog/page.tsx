@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { getAllPosts } from "@/lib/mdx"
 import { ArrowRight, ArrowUpRight, Pin, BookOpen, Database, Cloud, Lock, Terminal } from "lucide-react"
 
@@ -77,12 +78,24 @@ export default function BlogPage() {
                                     </div>
                                 </div>
                             </div>
-                            {/* Abstract Pattern Visual */}
-                            <div className="md:flex-[2] min-h-[200px] w-full bg-muted/40 rounded-lg overflow-hidden relative flex items-center justify-center">
-                                <div className="absolute inset-0 bg-grid-pattern opacity-[0.4]"></div>
-                                <div className="z-10 bg-background/50 backdrop-blur-sm p-4 rounded-full border border-primary/20">
-                                    {getCategoryIcon(featuredPost.metadata.tags)}
-                                </div>
+                            {/* Featured Thumbnail / Visual */}
+                            <div className="md:flex-[2] min-h-[240px] w-full rounded-lg overflow-hidden relative border border-border">
+                                {featuredPost.metadata.thumbnail ? (
+                                    <Image
+                                        src={featuredPost.metadata.thumbnail}
+                                        alt={featuredPost.metadata.title}
+                                        fill
+                                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                        priority
+                                    />
+                                ) : (
+                                    <div className="absolute inset-0 bg-muted/40 flex items-center justify-center">
+                                        <div className="absolute inset-0 bg-grid-pattern opacity-[0.4]"></div>
+                                        <div className="z-10 bg-background/50 backdrop-blur-sm p-4 rounded-full border border-primary/20">
+                                            {getCategoryIcon(featuredPost.metadata.tags)}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -99,9 +112,21 @@ export default function BlogPage() {
                     {otherPosts.map((post) => (
                         <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
                             <div className="flex flex-col sm:flex-row gap-5 bg-card border border-border hover:border-primary/40 rounded-xl p-5 transition-all hover:bg-muted/30">
-                                <div className="flex items-start gap-4 flex-1">
-                                    <div className="text-foreground flex items-center justify-center rounded-lg bg-muted border border-border shrink-0 size-12 group-hover:text-primary transition-colors">
-                                        {getCategoryIcon(post.metadata.tags)}
+                                <div className="flex items-center gap-5 flex-1">
+                                    {/* Small Thumbnail */}
+                                    <div className="relative shrink-0 size-24 md:size-32 rounded-lg overflow-hidden border border-border bg-muted/30">
+                                        {post.metadata.thumbnail ? (
+                                            <Image
+                                                src={post.metadata.thumbnail}
+                                                alt={post.metadata.title}
+                                                fill
+                                                className="object-cover group-hover:scale-110 transition-transform duration-500"
+                                            />
+                                        ) : (
+                                            <div className="absolute inset-0 flex items-center justify-center">
+                                                {getCategoryIcon(post.metadata.tags)}
+                                            </div>
+                                        )}
                                     </div>
                                     <div className="flex flex-col gap-1">
                                         <p className="text-foreground text-lg font-bold leading-tight group-hover:text-primary transition-colors">
