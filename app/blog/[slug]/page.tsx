@@ -3,6 +3,7 @@ import { MDXRemote } from "next-mdx-remote/rsc"
 import Link from "next/link"
 import { ArrowLeft, Clock, Calendar, Share2, Twitter, Linkedin, Copy } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import remarkGfm from "remark-gfm"
 
 type Params = Promise<{ slug: string }>
 
@@ -80,9 +81,17 @@ export default async function BlogPost({ params }: { params: Params }) {
                     prose-p:leading-relaxed prose-p:text-muted-foreground prose-headings:text-foreground
                     prose-li:text-muted-foreground prose-strong:text-foreground
                     prose-code:bg-muted prose-code:text-primary prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
+                    [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-inherit
                     prose-blockquote:border-l-primary prose-blockquote:bg-muted/30 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:not-italic prose-blockquote:text-muted-foreground
                 ">
-                    <MDXRemote source={post.content} />
+                    <MDXRemote
+                        source={post.content}
+                        options={{
+                            mdxOptions: {
+                                remarkPlugins: [remarkGfm],
+                            },
+                        }}
+                    />
                 </div>
 
                 {/* Visual Separator */}
