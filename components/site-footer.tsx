@@ -1,6 +1,8 @@
 import Link from "next/link"
 import { Mail, Briefcase, Code, FileText } from "lucide-react"
 
+const Year = new Date().getFullYear();
+
 export function SiteFooter() {
     return (
         <footer className="border-t border-border bg-background py-12">
@@ -33,7 +35,7 @@ export function SiteFooter() {
                 </div>
                 <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-center items-center gap-4">
                     <p className="text-sm text-muted-foreground">
-                        © 2025 Oktavian Aji. <span className="hidden sm:inline">Powered by Google Antigravity and Stitch.</span>
+                        © {Year} Oktavian Aji. <span className="hidden sm:inline">Powered by Google Antigravity and Stitch.</span>
                     </p>
                 </div>
             </div>
