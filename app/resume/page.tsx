@@ -13,7 +13,7 @@ export default function ResumePage() {
     const lines = [
         { type: "command", text: "git checkout main" },
         { type: "info", text: "Switched to branch 'main'" },
-        { type: "command", text: "cat OKTAVIAN_AJI_CV.md" },
+        { type: "command", text: "cat OKTAVIAN_AJI_CV.pdf" },
         { type: "fetching", text: "Fetching resource from local/storage/resume_final_2026..." },
     ]
 
@@ -102,9 +102,9 @@ export default function ResumePage() {
                                                 <span className="flex items-center gap-1 underline underline-offset-4 decoration-white/20 hover:decoration-primary transition-colors cursor-pointer">Jakarta, Indonesia</span>
                                             </div>
                                         </div>
-                                        <a href="/OKTAVIAN_AJI_CV.md" download="OKTAVIAN_AJI_CV.md">
+                                        <a href="/cv/CV_Oktavian_Aji_2025.pdf" download="OKTAVIAN_AJI_CV.pdf">
                                             <Button className="bg-white text-black hover:bg-white/90 font-bold gap-2 font-sans">
-                                                <Download className="h-4 w-4" /> Download CV (.md)
+                                                <Download className="h-4 w-4" /> Download
                                             </Button>
                                         </a>
                                     </div>
