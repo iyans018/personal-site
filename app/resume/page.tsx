@@ -13,8 +13,8 @@ export default function ResumePage() {
     const lines = [
         { type: "command", text: "git checkout main" },
         { type: "info", text: "Switched to branch 'main'" },
-        { type: "command", text: "cat OKTAVIAN_AJI_CV.pdf" },
-        { type: "fetching", text: "Fetching resource from local/storage/resume_final_2026..." },
+        { type: "command", text: "cat cv-oktavian-aji-2026.pdf" },
+        { type: "fetching", text: "Fetching resource from public/cv/cv-final-2026..." },
     ]
 
     useEffect(() => {
@@ -102,16 +102,17 @@ export default function ResumePage() {
                                                 <span className="flex items-center gap-1 underline underline-offset-4 decoration-white/20 hover:decoration-primary transition-colors cursor-pointer">Jakarta, Indonesia</span>
                                             </div>
                                         </div>
-                                        <a href="/cv/CV_Oktavian_Aji_2025.pdf" download="OKTAVIAN_AJI_CV.pdf">
-                                            <Button className="bg-white text-black hover:bg-white/90 font-bold gap-2 font-sans">
-                                                <Download className="h-4 w-4" /> Download
-                                            </Button>
-                                        </a>
+                                        <div className="flex flex-wrap gap-3">
+                                            <a href="/cv/cv-oktavian-aji-2026.pdf" download="CV Oktavian Aji 2026.pdf">
+                                                <Button className="bg-white text-black hover:bg-white/90 font-bold gap-2 font-sans text-xs">
+                                                    <Download className="h-3 w-3" /> Download
+                                                </Button>
+                                            </a>
+                                        </div>
                                     </div>
 
-                                    {/* Summary Section */}
                                     <div className="text-muted-foreground leading-relaxed text-sm max-w-3xl">
-                                        <p>Versatile Software Engineer with <span className="text-white font-bold">3+ years of experience</span> delivering end-to-end enterprise solutions. Specializing in <span className="text-primary italic font-bold">scalable backends</span>, distributed systems, and event-driven architectures. Currently focused on building high-integrity systems at <span className="text-white font-bold">Telkomsigma</span> while mastering Fintech core principles and advanced system design (DDIA).</p>
+                                        <p>Software Engineer with <span className="text-white font-bold">4 years of experience</span> designing and modernizing <span className="text-primary italic font-bold">enterprise-scale systems</span>. Proven track record in building centralized authentication platforms, workflow engines, and high-throughput backend services across heterogeneous environments. Strong expertise in Python, distributed systems, message-driven architectures (RabbitMQ), asynchronous processing (Celery, Airflow), and relational databases (Oracle, PostgreSQL). Experienced in system refactoring, performance optimization, and translating complex business workflows into scalable backend solutions. Comfortable working in cross-functional teams and mentoring junior engineers to deliver production-ready code.</p>
                                     </div>
 
                                     {/* Resume Grid */}
@@ -200,10 +201,10 @@ export default function ResumePage() {
                                                 </div>
                                                 <div className="flex flex-col gap-6">
                                                     {[
-                                                        { label: "Backend", techs: ["Python (Django/FastAPI)", "Go (Echo/Fiber)", "Node.js"] },
-                                                        { label: "Data & Messaging", techs: ["PostgreSQL", "Oracle", "Redis", "RabbitMQ", "Celery"] },
-                                                        { label: "Infrastructure", techs: ["Docker", "GitLab CI/CD", "Apache Airflow", "Rancher"] },
-                                                        { label: "Frontend", techs: ["React/Next.js", "Vue/Nuxt", "TailwindCSS"] }
+                                                        { label: "System Architecture", techs: ["DDIA Principles", "High Availability", "ACID Transactions", "Concurrency Control"] },
+                                                        { label: "Backend Engineering", techs: ["Python (Django/FastAPI)", "Go (Learning)", "Node.js (Express)", "REST/OpenAPI"] },
+                                                        { label: "Data & Logistics", techs: ["PostgreSQL Optimization", "Oracle SQL", "RabbitMQ", "Celery", "Redis"] },
+                                                        { label: "Engineering Ops", techs: ["Docker", "GitLab CI/CD", "Apache Airflow", "Unit & Integration Testing"] }
                                                     ].map((item) => (
                                                         <div key={item.label} className="flex flex-col gap-2">
                                                             <p className="text-[10px] font-bold text-primary uppercase tracking-tighter">{item.label}</p>

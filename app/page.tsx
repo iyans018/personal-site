@@ -48,10 +48,10 @@ export default function Home() {
                 Focused on Reliability & System Design
               </div>
               <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:leading-[1.1]">
-                Building <span className="text-primary">Resilient</span> & Scalable Backends for High-Stakes Systems.
+                Architecting <span className="text-primary">High-Availability</span> Systems & Data-Intensive Backends.
               </h1>
               <p className="text-lg text-muted-foreground max-w-lg leading-relaxed">
-                A Software Engineer specializing in scalable backends and distributed systems. From optimizing enterprise workflows to building event-driven architectures, I design resilient software that lasts.
+                A Backend Engineer specializing in building reliable, failure-resilient architectures. From optimizing transactional integrity to designing asynchronous pipelines, I build systems that scale without compromise.
               </p>
               <div className="flex flex-wrap gap-4 pt-2">
                 <Button asChild size="lg" className="h-12 px-6 text-base font-bold shadow-lg shadow-primary/25">
@@ -106,20 +106,14 @@ export default function Home() {
             <span className="text-xs font-bold uppercase tracking-widest text-primary">About Me</span>
           </div>
           <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-4xl mb-6">
-            I don’t just write code; I design systems that last.
+            Engineered for Precision. Optimized for Reliability.
           </h2>
           <div className="prose prose-lg dark:prose-invert mx-auto text-muted-foreground leading-relaxed space-y-4 text-justify">
             <p>
-              With 3+ years of experience building enterprise-grade systems, I’ve developed
-              a deep focus on system efficiency and robustness. My engineering philosophy
-              is rooted in the principles of <em>Designing Data-Intensive Applications</em> (DDIA)—moving
-              beyond just "making it work" to ensuring systems are truly resilient and scalable.
+              With 4 years of experience building mission-critical enterprise systems, I’ve developed a deep focus on **architectural reliability and data consistency**. My engineering philosophy is heavily influenced by the principles of **Designing Data-Intensive Applications (DDIA)**—prioritizing systems that are not only scalable but also maintainable and deeply resilient to failure.
             </p>
             <p>
-              Currently, I am channeling my focus into mastering <strong>Fintech Core Principles</strong>,
-              deepening my expertise in <strong>Go</strong>, and refining my <strong>System Design</strong> skills.
-              My goal is to bridge the gap between complex business logic and high-performance
-              infrastructure, thriving in environments where precision matters and downtime is not an option.
+              Currently, I am expanding my expertise into **high-performance systems with Go**, mastering **advanced distributed patterns**, and refining my **system design** methodology. I thrive in environments where engineering precision is paramount, bridging the gap between complex business requirements and robust, performant infrastructure.
             </p>
           </div>
         </div>
