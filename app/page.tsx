@@ -47,7 +47,7 @@ export default function Home() {
                 </span>
                 Focused on Reliability & System Design
               </div>
-              <h1 className="text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:leading-[1.1]">
+              <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:leading-[1.1]">
                 Building <span className="text-primary">Resilient</span> & Scalable Backends for High-Stakes Systems.
               </h1>
               <p className="text-lg text-muted-foreground max-w-lg leading-relaxed">
@@ -105,7 +105,7 @@ export default function Home() {
           <div className="inline-flex items-center justify-center rounded-full bg-primary/10 px-4 py-1.5 mb-6">
             <span className="text-xs font-bold uppercase tracking-widest text-primary">About Me</span>
           </div>
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mb-6">
+          <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-4xl mb-6">
             I don’t just write code; I design systems that last.
           </h2>
           <div className="prose prose-lg dark:prose-invert mx-auto text-muted-foreground leading-relaxed space-y-4 text-justify">
@@ -179,7 +179,7 @@ export default function Home() {
                 </div>
                 <span className="text-xs font-bold uppercase tracking-widest text-primary">From the Engineering Log</span>
               </div>
-              <h2 className="text-3xl font-bold tracking-tight text-foreground mb-4">Engineering Insights & Technical Logs.</h2>
+              <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl mb-4">Engineering Insights & Technical Logs.</h2>
               <p className="text-lg text-muted-foreground">
                 Deep dives into distributed systems, backend patterns, and system optimization strategies.
               </p>
