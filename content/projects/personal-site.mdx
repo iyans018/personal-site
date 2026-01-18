@@ -1,0 +1,64 @@
+---
+title: "Personal Site: Engineering My Digital Repository"
+description: "A high-performance portfolio and engineering log built with Next.js 16, leveraging MDX for seamless content creation and a terminal-inspired aesthetic."
+date: "2026-01-18"
+client: "Personal Project"
+role: "Full Stack Developer / Architect"
+stack: ["Next.js 16", "React 19", "TailwindCSS", "MDX", "Framer Motion", "Lucide React"]
+metrics: ["Dynamic Content Management", "Dark-themed Terminal UI", "Responsive Design"]
+---
+
+## The Challenge
+
+As a Software Engineer focusing on backend and system design, I needed a platform that wasn't just a basic landing page. I wanted a digital repository that could:
+- **Showcase complex projects** with technical depth and code snippets.
+- **Serve as an engineering log** for deep dives into distributed systems and fintech patterns.
+- **Maintain a high-performance profile** with a design that reflects my focus on precision and system design.
+
+The hurdle was building something that felt "premium" and "technical" while being easy to maintain without constantly touching the codebase for every new post or project.
+
+## The Solution
+
+I architected this site as a **Content-First Platform**, where the UI acts as a wrapper for semantically rich data.
+
+### 1. Unified Content Management with MDX
+The core of this project is the integration of **MDX (Markdown for JSX)**. This allows me to:
+- **Write content in Markdown** while rendering interactive React components where needed.
+- **Dynamic Routing**: I used an optimized file-system-based reader (`lib/mdx.ts`) to fetch, parse (using `gray-matter`), and sort content for both the blog and project sections.
+- **Extensible Rendering**: By plugging in `remark-gfm` and `next-mdx-remote`, I enabled support for complex tables, technical diagrams, and custom code block styling.
+
+### 2. The Terminal Aesthetic & UX
+To reflect my engineering philosophy, I implemented a **terminal-inspired UI**:
+- **Simulated Terminal**: The Resume page features a type-writer effect and simulated shell commands using **Framer Motion**, creating an immersive experience for recruiters.
+- **Dark Mode by Design**: A sleek, high-contrast dark theme built with **TailwindCSS** that prioritizes readability and reduces eye strain.
+- **Lucide Icons**: Strategic use of icons for categorizing technical stacks (e.g., Database icons for SQL projects, Terminal for DevOps).
+
+### 3. Engineering-Oriented Navigation
+- **Dynamic Highlights**: The home page features a smart "Highlight Projects" section that automatically surfaces the latest work using a custom mapping logic that assigns icons based on the technical category (Legal, Finance, Mentorship, etc.).
+- **SEO & Performance**: Built on **Next.js 16**, the site leverages Server Components for fast initial loads and optimized SEO, ensuring my technical logs are easily discoverable.
+
+```tsx
+// Example of the MDX fetching logic I implemented
+export function getPostBySlug(type: string, slug: string): Post {
+    const realSlug = slug.replace(/\.mdx$/, "")
+    const filePath = path.join(root, "content", type, `${realSlug}.mdx`)
+    const fileContents = fs.readFileSync(filePath, "utf8")
+    const { data, content } = matter(fileContents)
+
+    return {
+        slug: realSlug,
+        metadata: data,
+        content,
+    }
+}
+```
+
+## Core Implementation Details
+
+- **Responsive Framework**: Used Tailwind's utility-first approach to ensure the site looks flawless on enterprise-grade monitors and mobile devices alike.
+- **Typography**: Integrated the **@tailwindcss/typography** plugin to ensure technical articles (like the ones on Idempotency) are beautifully formatted with proper spacing, lists, and code blocks.
+- **Automation**: Designed the workflow so that adding a new project is as simple as dropping a `.mdx` file into a directory, with the system handling the rest.
+
+## Conclusion
+
+This personal site is more than just a portfolio; it's a living example of my technical standards. It demonstrates my ability to bridge the gap between rich user experience and clean, data-driven architecture.

@@ -5,6 +5,7 @@ import { getAllPosts } from "@/lib/mdx"
 
 export default function Home() {
   const posts = getAllPosts("blog").slice(0, 3)
+  const projects = getAllPosts("projects").slice(0, 3)
 
   // Helper for category icons
   const getCategoryIcon = (tags?: string[]) => {
@@ -14,6 +15,21 @@ export default function Home() {
     if (tag.includes("cloud") || tag.includes("aws")) return <Cloud className="h-4 w-4" />
     if (tag.includes("sec") || tag.includes("auth")) return <Lock className="h-4 w-4" />
     return <BookOpen className="h-4 w-4" />
+  }
+
+  // Helper for project icons
+  const getProjectIcon = (project: any) => {
+    const title = project.metadata.title?.toLowerCase() || ""
+    const client = project.metadata.client?.toLowerCase() || ""
+    const stack = (project.metadata.stack || []).map((s: string) => s.toLowerCase())
+
+    if (title.includes("ledger") || title.includes("finance") || stack.includes("postgresql")) return <Database className="h-8 w-8 text-primary" />
+    if (title.includes("hub") || title.includes("sso") || title.includes("auth")) return <Lock className="h-8 w-8 text-primary" />
+    if (title.includes("digipactum") || title.includes("legal") || title.includes("gavel")) return <Gavel className="h-8 w-8 text-primary" />
+    if (title.includes("mobile") || title.includes("mts") || title.includes("mango")) return <Terminal className="h-8 w-8 text-primary" />
+    if (title.includes("ess") || title.includes("mentorship")) return <Workflow className="h-8 w-8 text-primary" />
+
+    return <Settings className="h-8 w-8 text-primary" />
   }
 
   return (
@@ -116,63 +132,38 @@ export default function Home() {
           <p className="mt-2 text-muted-foreground">Solving real-world problems with scalable architecture.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Link href="/projects/digipactum" className="relative overflow-hidden rounded-xl border border-border bg-card p-6 flex flex-col group glow-hover h-full transition-transform hover:-translate-y-1">
-            <div className="absolute top-0 right-0 p-4 opacity-50 group-hover:opacity-100 transition-opacity">
-              <Database className="h-8 w-8 text-primary" />
-            </div>
-            <div className="mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-primary">Enterprise</span>
-            </div>
-            <h3 className="text-xl font-bold text-foreground mb-2">Digipactum: Enterprise Contract Lifecycle</h3>
-            <p className="text-xs font-medium text-muted-foreground/80 mb-4 italic">Modernizing legacy legal operations through dynamic workflow automation and hybrid-database architecture.</p>
-            <p className="text-sm text-muted-foreground mb-6 flex-grow">
-              I modernized legacy legal systems into an enterprise CLM, architecting a dynamic workflow engine and hybrid database (Oracle/MongoDB) that reduced drafting time by 70% and eliminated operational bottlenecks through automated orchestration.
-            </p>
-            <div className="flex flex-wrap gap-2 mt-auto">
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Python</span>
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Django</span>
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Celery</span>
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Redis</span>
-            </div>
-          </Link>
-
-          <Link href="/projects/app-hub" className="relative overflow-hidden rounded-xl border border-border bg-card p-6 flex flex-col group glow-hover h-full transition-transform hover:-translate-y-1">
-            <div className="absolute top-0 right-0 p-4 opacity-50 group-hover:opacity-100 transition-opacity">
-              <Gavel className="h-8 w-8 text-primary" />
-            </div>
-            <div className="mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-primary">Enterprise</span>
-            </div>
-            <h3 className="text-xl font-bold text-foreground mb-2">Application Hub: Unified Enterprise SSO</h3>
-            <p className="text-xs font-medium text-muted-foreground/80 mb-4 italic">Unified enterprise access via custom ticketing and RabbitMQ.</p>
-            <p className="text-sm text-muted-foreground mb-6 flex-grow">
-              I architected a centralized SSO platform using CAS-inspired ticketing. By implementing event-driven logout via RabbitMQ, I unified authentication across diverse tech stacks, ensuring seamless user access and secure, real-time global session revocation.
-            </p>
-            <div className="flex flex-wrap gap-2 mt-auto">
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Python</span>
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Django</span>
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">RabbitMQ</span>
-            </div>
-          </Link>
-
-          <Link href="/projects" className="relative overflow-hidden rounded-xl border border-border bg-card p-6 flex flex-col group glow-hover h-full transition-transform hover:-translate-y-1">
-            <div className="absolute top-0 right-0 p-4 opacity-50 group-hover:opacity-100 transition-opacity">
-              <ShoppingCart className="h-8 w-8 text-primary" />
-            </div>
-            <div className="mb-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-primary">Finance</span>
-            </div>
-            <h3 className="text-xl font-bold text-foreground mb-2">Ledger Core: High-Integrity Financial Engine</h3>
-            <p className="text-xs font-medium text-muted-foreground/80 mb-4 italic">Immutable double-entry ledger with strict idempotency and fault-tolerance..</p>
-            <p className="text-sm text-muted-foreground mb-6 flex-grow">
-              I engineered an immutable double-entry ledger featuring derived-state balances and strict idempotency. Through rigorous failure simulations, I guaranteed 100% financial integrity, preventing data drift and duplicate transactions even during concurrent system crashes.
-            </p>
-            <div className="flex flex-wrap gap-2 mt-auto">
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Go</span>
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">Echo</span>
-              <span className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">PostgreSQL</span>
-            </div>
-          </Link>
+          {projects.map((project) => (
+            <Link
+              key={project.slug}
+              href={`/projects/${project.slug}`}
+              className="relative overflow-hidden rounded-xl border border-border bg-card p-6 flex flex-col group glow-hover h-full transition-transform hover:-translate-y-1"
+            >
+              <div className="absolute top-0 right-0 p-4 opacity-50 group-hover:opacity-100 transition-opacity">
+                {getProjectIcon(project)}
+              </div>
+              <div className="mb-4">
+                <span className="text-xs font-bold uppercase tracking-wider text-primary">
+                  {project.metadata.client?.includes("Telkomsigma") ? "Enterprise" : project.metadata.client || "Project"}
+                </span>
+              </div>
+              <h3 className="text-xl font-bold text-foreground mb-2 line-clamp-2">
+                {project.metadata.title}
+              </h3>
+              <p className="text-xs font-medium text-muted-foreground/80 mb-4 italic line-clamp-2">
+                {project.metadata.description}
+              </p>
+              <p className="text-sm text-muted-foreground mb-6 flex-grow line-clamp-4">
+                {project.content.split('\n').find(line => line.trim().length > 50 && !line.startsWith('#')) || project.metadata.description}
+              </p>
+              <div className="flex flex-wrap gap-2 mt-auto">
+                {project.metadata.stack?.slice(0, 4).map((tech: string) => (
+                  <span key={tech} className="px-2 py-1 bg-muted rounded text-[10px] text-muted-foreground border border-border">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 
