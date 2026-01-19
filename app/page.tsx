@@ -110,10 +110,10 @@ export default function Home() {
           </h2>
           <div className="prose prose-lg dark:prose-invert mx-auto text-muted-foreground leading-relaxed space-y-4 text-justify">
             <p>
-              With 4 years of experience building mission-critical enterprise systems, I’ve developed a deep focus on **architectural reliability and data consistency**. My engineering philosophy is heavily influenced by the principles of **Designing Data-Intensive Applications (DDIA)**—prioritizing systems that are not only scalable but also maintainable and deeply resilient to failure.
+              With 4 years of experience building mission-critical enterprise systems, I’ve developed a deep focus on <b>architectural reliability and data consistency</b>. My engineering philosophy is heavily influenced by the principles of <b>Designing Data-Intensive Applications (DDIA)</b> prioritizing systems that are not only scalable but also maintainable and deeply resilient to failure.
             </p>
             <p>
-              Currently, I am expanding my expertise into **high-performance systems with Go**, mastering **advanced distributed patterns**, and refining my **system design** methodology. I thrive in environments where engineering precision is paramount, bridging the gap between complex business requirements and robust, performant infrastructure.
+              Currently, I am expanding my expertise into <b>high-performance systems with Go</b>, mastering <b>advanced distributed patterns</b>, and refining my <b>system design</b> methodology. I thrive in environments where engineering precision is paramount, bridging the gap between complex business requirements and robust, performant infrastructure.
             </p>
           </div>
         </div>
